@@ -148,12 +148,21 @@ async function rfid() {
 
 function photo(input) {
   const f = input.files[0]; if (!f) return;
-  const rd = new FileReader();
-  rd.onload = () => {
-    add(`<div class="who">حارس البوابة</div><img src="${rd.result}" style="max-width:100%;border-radius:8px">`, "me");
-    send({image: {media_type: f.type, data: rd.result.split(",")[1]}});
+  input.value = "";
+  // Shrink to max 1600 px and convert to JPEG: phone photos are often over the 5 MB limit, or in HEIC.
+  const img = new Image();
+  img.onload = () => {
+    const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    const url = c.toDataURL("image/jpeg", 0.85);
+    URL.revokeObjectURL(img.src);
+    add(`<div class="who">حارس البوابة · 📷</div><img src="${url}" style="max-width:100%;border-radius:8px">`, "me");
+    send({image: {media_type: "image/jpeg", data: url.split(",")[1]}});
   };
-  rd.readAsDataURL(f); input.value = "";
+  img.onerror = () => alert("ما قدرت أفتح الصورة. جرّب صورة JPG أو PNG.");
+  img.src = URL.createObjectURL(f);
 }
 
 function render(r) {
@@ -238,6 +247,8 @@ async function confirmIt(btn) {
     if (o.emails.length) h += `<h4>Supplier email drafts</h4>` + o.emails.map(e => `<details><summary>${esc(e.subject)}</summary><pre dir="rtl" style="text-align:right">${esc(e.body_ar)}</pre><pre>${esc(e.body_en)}</pre></details>`).join("");
     if (o.followups.length) h += `<h4>Follow-ups</h4>` + o.followups.map(f => `<div>${f.reason} ×${f.qty} — due ${f.due_date}</div>`).join("");
     if (o.alerts.length) h += `<h4>Manager alerts</h4>` + o.alerts.map(a => `<div>${esc(a)}</div>`).join("");
+    if (o.reports.length) h += `<h4>Receiving report (PDF)</h4>` + o.reports.map(r => `<div><a href="${r.url}" target="_blank">📄 ${esc(r.name)}</a></div>`).join("");
+    h += `<h4>Email</h4><div>📧 Finance: ${esc(o.sent.finance)}</div><div>📧 Supplier: ${esc(o.sent.supplier)}</div>`;
     h += `</div><button class="primary big" style="margin-top:10px" onclick="newDelivery()">+ توريد جديد</button>`;
     add(h, "bot"); delivery = null; $("bar").hidden = true;
   } catch (e) { btn.disabled = false; add(`Error: ${esc(e.message)}`, "bot"); }

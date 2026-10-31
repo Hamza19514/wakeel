@@ -91,6 +91,9 @@ CREATE TABLE receiving_lines (
 CREATE TABLE finance_notifications (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     bill_id TEXT NOT NULL,
+    record_id INTEGER REFERENCES receiving_records(id),
+    report_path TEXT,                -- PDF receiving report
+    email_status TEXT NOT NULL DEFAULT 'not_sent',  -- not_sent | sent | failed
     pay_amount REAL NOT NULL,
     hold_amount REAL NOT NULL,
     message TEXT NOT NULL,

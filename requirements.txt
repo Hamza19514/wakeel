@@ -2,3 +2,5 @@ anthropic
 fastapi
 uvicorn
 python-dotenv
+fpdf2
+uharfbuzz

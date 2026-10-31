@@ -64,9 +64,11 @@ async function load() {
     ["Test set: no-touch share", t ? Math.round(t.no_touch_share * 100) + "%" : "–"],
   ].map(([k, v]) => `<div class="tile"><span>${k}</span><b>${v}</b></div>`).join("");
 
-  $("notes").innerHTML = f.notifications.length ? `<table><tr><th>Bill</th><th>Message</th><th class="num">Pay now</th><th class="num">Hold</th><th>Status</th><th></th></tr>` +
+  $("notes").innerHTML = f.notifications.length ? `<table><tr><th>Bill</th><th>Message</th><th class="num">Pay now</th><th class="num">Hold</th><th>Status</th><th>Report</th><th></th></tr>` +
     f.notifications.map(n => `<tr><td><b>${n.bill_id}</b></td><td>${esc(n.message)}</td><td class="num pay">${sar(n.pay_amount)}</td>
-      <td class="num hold">${sar(n.hold_amount)}</td><td><span class="pill ${n.status}">${n.status.replaceAll("_", " ")}</span></td>
+      <td class="num hold">${sar(n.hold_amount)}</td><td><span class="pill ${n.status}">${n.status.replaceAll("_", " ")}</span>
+        <div style="margin-top:4px"><span class="pill">📧 ${n.email_status.replaceAll("_", " ")}</span></div></td>
+      <td>${n.report_path ? `<a href="/api/reports/${n.record_id}" target="_blank">📄 PDF</a>` : ""}</td>
       <td>${n.status === "awaiting_finance_approval" ? `<button class="approve" onclick="approve(${n.id})">Approve payment</button>` : ""}</td></tr>`).join("") + `</table>`
     : empty("Nothing yet. Confirm a delivery on the gate screen.");
 

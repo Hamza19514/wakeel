@@ -10,7 +10,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 
-from wakeel import agent, db, tools
+from wakeel import agent, db, mailer, report, tools
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 app = FastAPI(title="WAKEEL")
@@ -64,6 +64,7 @@ def finance():
 def info():
     c = conn()
     return {"engine": agent.engine_name(), "model": agent.MODEL if agent.engine_name() == "claude" else None,
+            "email": "Gmail" if mailer.configured() else "drafts only",
             "suppliers": tools.list_suppliers(c)}
 
 
@@ -98,10 +99,23 @@ def rfid(delivery_id: str):
 
 @app.post("/api/deliveries/{delivery_id}/confirm")
 def confirm(delivery_id: str):
+    c = conn()
     try:
-        return tools.confirm_delivery(conn(), delivery_id)
+        out = tools.confirm_delivery(c, delivery_id)
     except ValueError as e:
         raise HTTPException(400, str(e))
+    paths = [report.build_report(c, r) for r in out["records"]]
+    out["reports"] = [{"record_id": r, "url": f"/api/reports/{r}", "name": os.path.basename(p)} for r, p in zip(out["records"], paths)]
+    out["sent"] = mailer.send_delivery(c, out, paths)
+    return out
+
+
+@app.get("/api/reports/{record_id}")
+def get_report(record_id: int):
+    row = conn().execute("SELECT report_path FROM finance_notifications WHERE record_id=?", (record_id,)).fetchone()
+    if not row or not row[0] or not os.path.exists(row[0]):
+        raise HTTPException(404, "Report not found")
+    return FileResponse(row[0], media_type="application/pdf", filename=os.path.basename(row[0]))
 
 
 @app.post("/api/deliveries/{delivery_id}/cancel")

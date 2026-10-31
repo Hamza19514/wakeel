@@ -2,7 +2,7 @@
 
 Test file: `tests\test_deliveries.json`  
 Engine: **claude** · Cases: **19** · Passed: **19/19**  
-Planted problems caught: **23/23** · No-touch share: **17/19** (reached the confirm screen with no question) · Avg agent time: **10.16s**
+Planted problems caught: **23/23** · No-touch share: **17/19** (reached the confirm screen with no question) · Avg agent time: **10.10s**
 
 | Case | Scenario | Result | Question asked | Planted problems caught | Notes |
 |---|---|---|---|---|---|

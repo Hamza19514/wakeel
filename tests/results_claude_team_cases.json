@@ -1,0 +1,41 @@
+{
+  "summary": {
+    "engine": "claude",
+    "cases": 2,
+    "passed": 2,
+    "planted_problems": 2,
+    "problems_caught": 2,
+    "no_touch_share": 1.0,
+    "avg_agent_seconds": 11.421
+  },
+  "results": [
+    {
+      "id": "H01",
+      "title": "Team sentence: printer and desk only",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 14.659,
+      "engine": "claude",
+      "final": "تمام، سجّلت الطابعة والمكتب على فاتورة A-1042، والشاشات والماوس باقية وبنتابع المورد عليها.\nراجع الجدول واضغط تأكيد، وبعدها نبلّغ المالية تصرف قيمة اللي وصل وتوقف قيمة الباقي لين يجي."
+    },
+    {
+      "id": "H02",
+      "title": "Team sentence: two chairs broken",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true
+      },
+      "seconds": 8.184,
+      "engine": "claude",
+      "final": "ربطت الاستلام بفاتورة B-2001. بنبلّغ المالية تصرف قيمة الكراسي السليمة والمكاتب وتوقف مبلغ الكرسيين المكسورين.\nوبنرسل لشركة ب تقرير بالكسر ونطلب كرسيين بدالهم. اضغط \"تأكيد\" إذا كل شي تمام."
+    }
+  ]
+}

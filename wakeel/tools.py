@@ -313,15 +313,15 @@ def _issue_phrases(lines, lang, prices=False):
     return out
 
 
-def notify_finance(conn, supplier, record):
+def notify_finance(conn, supplier, record, record_id=None):
     issues = _issue_phrases(record["lines"], "en", prices=True)
     if record["hold"] == 0:
         msg = f"Bill {record['bill_id']}, {supplier['name_en']}: all items received in good condition. Approve full payment of {record['pay']:,.0f} SAR. Receiving record attached."
     else:
         msg = (f"Bill {record['bill_id']}, {supplier['name_en']}: pay {record['pay']:,.0f} SAR now. "
                f"Hold {record['hold']:,.0f} SAR: {'; '.join(issues)}. Receiving record attached.")
-    conn.execute("INSERT INTO finance_notifications (bill_id, pay_amount, hold_amount, message, created_at) VALUES (?,?,?,?,?)",
-                 (record["bill_id"], record["pay"], record["hold"], msg, db.now()))
+    conn.execute("INSERT INTO finance_notifications (bill_id, record_id, pay_amount, hold_amount, message, created_at) "
+                 "VALUES (?,?,?,?,?,?)", (record["bill_id"], record_id, record["pay"], record["hold"], msg, db.now()))
     return msg
 
 
@@ -340,9 +340,9 @@ def draft_supplier_email(conn, supplier, record):
                + "\n".join(f"- {x}" for x in en_issues)
                + "\n\nPlease confirm when the remaining or replacement items will be delivered. "
                "The bill stays open until then.\n\nBest regards,\nReceiving team")
-    conn.execute("INSERT INTO supplier_emails (supplier_id, bill_id, subject, body_ar, body_en, created_at) VALUES (?,?,?,?,?,?)",
-                 (supplier["id"], record["bill_id"], subject, body_ar, body_en, db.now()))
-    return {"subject": subject, "body_ar": body_ar, "body_en": body_en}
+    cur = conn.execute("INSERT INTO supplier_emails (supplier_id, bill_id, subject, body_ar, body_en, created_at) VALUES (?,?,?,?,?,?)",
+                       (supplier["id"], record["bill_id"], subject, body_ar, body_en, db.now()))
+    return {"id": cur.lastrowid, "subject": subject, "body_ar": body_ar, "body_en": body_en}
 
 
 def schedule_followup(conn, record):
@@ -372,8 +372,9 @@ def confirm_delivery(conn, delivery_id, confirmed_by="gate keeper"):
     supplier = _supplier(conn, proposal["supplier_id"])
     out = {"records": [], "finance": [], "emails": [], "followups": [], "alerts": []}
     for rec in proposal["records"]:
-        out["records"].append(create_receiving_record(conn, d, rec, confirmed_by))
-        out["finance"].append(notify_finance(conn, supplier, rec))
+        record_id = create_receiving_record(conn, d, rec, confirmed_by)
+        out["records"].append(record_id)
+        out["finance"].append(notify_finance(conn, supplier, rec, record_id))
         email = draft_supplier_email(conn, supplier, rec)
         if email:
             out["emails"].append(email)
