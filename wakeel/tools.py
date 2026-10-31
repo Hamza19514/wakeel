@@ -113,13 +113,13 @@ def match_bill(conn, supplier_id, items, prefer_bills=None):
             if prev:
                 flags.append({
                     "kind": "duplicate", "item_code": code, "qty": qty,
-                    "message": f"{name_en} x{qty or '?'}: already fully received on bill {prev[0]['bill_id']}. "
+                    "message": f"{name_en}{f' x{qty}' if qty else ''}: already fully received on bill {prev[0]['bill_id']}. "
                                f"Possible duplicate delivery or duplicate bill - do not pay twice.",
                 })
             else:
                 flags.append({
                     "kind": "unexpected_item", "item_code": code, "qty": qty,
-                    "message": f"{name_en} x{qty or '?'}: not on any open bill from this supplier.",
+                    "message": f"{name_en}{f' x{qty}' if qty else ''}: not on any open bill from this supplier.",
                 })
             continue
 

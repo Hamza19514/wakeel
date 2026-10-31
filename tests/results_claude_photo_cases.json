@@ -1,0 +1,55 @@
+{
+  "summary": {
+    "engine": "claude",
+    "cases": 3,
+    "passed": 3,
+    "planted_problems": 3,
+    "problems_caught": 3,
+    "no_touch_share": 1.0,
+    "avg_agent_seconds": 11.557,
+    "skipped": []
+  },
+  "results": [
+    {
+      "id": "P01",
+      "title": "Printed delivery note: 2 of 3 monitors, no mouse",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true,
+        "missing": true
+      },
+      "seconds": 12.138,
+      "engine": "claude",
+      "final": "جهّزت مسودة الاستلام على أمر الشراء PO-501 من شركة أ. باقي شاشة وماوس ما وصلت، فبنبلغ المالية تدفع قيمة اللي وصل وتمسك مبلغ الناقص.\nوبنرسل إيميل للمورد عن الناقص ونتابع معه بعد ٧ أيام. راجع الجدول وإذا كل شي تمام اضغط \"تأكيد\"."
+    },
+    {
+      "id": "P02",
+      "title": "Note with a handwritten remark: projector broken",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true
+      },
+      "seconds": 10.184,
+      "engine": "claude",
+      "final": "I've saved a draft receipt for شركة ب on bill B-2007. The cables came in fine, and the projector came in broken, as the guard's note on the delivery paper says.\n\nبنصرف قيمة الكيابل ونوقف مبلغ البروجكتر المكسور، ونرسل للمورد تقرير تلف ونطلب بديل.\nراجع الجدول واضغط تأكيد."
+    },
+    {
+      "id": "P03",
+      "title": "English delivery note, all received",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 12.35,
+      "engine": "claude",
+      "final": "جهزت لك استلام شركة ج على فاتورة C-3001. كل الأغراض وصلت كاملة وسليمة.\nإذا أكدت، بنبلغ المالية تصرف الفاتورة كاملة وتقفلها. اضغط تأكيد إذا كل شي تمام."
+    }
+  ]
+}

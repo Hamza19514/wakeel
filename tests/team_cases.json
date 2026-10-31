@@ -1,14 +1,105 @@
 [
   {
-    "id": "H01", "title": "Team sentence: printer and desk only",
+    "id": "H01", "title": "Printer and desk only, rest later",
     "text": "وصل من شركة أ الطابعة والمكتب بس، الباقي بعدين",
     "planted": ["missing"],
     "expect": {"bills": {"A-1042": {"pay": 2400, "hold": 2900, "lines": {"PRN": "received", "DSK": "received", "MON": "missing", "MSE": "missing"}}}}
   },
   {
-    "id": "H02", "title": "Team sentence: two chairs broken",
+    "id": "H02", "title": "Two chairs broken (\"فيهم كسر\")",
     "text": "شركة ب سلمونا عشرة كراسي ومكتبين، كرسيين فيهم كسر",
     "planted": ["damaged"],
     "expect": {"bills": {"B-2001": {"pay": 6000, "hold": 900, "lines": {"CHR": "damaged", "DSK": "received"}}}}
+  },
+  {
+    "id": "H03", "title": "\"Batteries\" UPS and two routers, all fine",
+    "text": "استلمنا من شركة ج ثلاث بطاريات يو بي اس وراوترين، كلها تمام",
+    "planted": [],
+    "expect": {"bills": {"C-3001": {"pay": 4700, "hold": 0, "lines": {"UPS": "received", "RTR": "received"}}}}
+  },
+  {
+    "id": "H04", "title": "Cables short: only five came",
+    "text": "شركة ب: البروجكتر جا سليم بس الكيبلات ناقصة، جاب خمسة بس",
+    "planted": ["partial"],
+    "expect": {"bills": {"B-2007": {"pay": 2800, "hold": 200, "lines": {"PRJ": "received", "HDM": "partial"}}}}
+  },
+  {
+    "id": "H05", "title": "Laptop with a broken screen, mice didn't come",
+    "text": "مندوب شركة أ نزل أربع لابتوبات، واحد شاشته مكسورة، والماوسات ما جات",
+    "planted": ["damaged", "missing"],
+    "expect": {"bills": {"A-1050": {"pay": 11400, "hold": 4600, "lines": {"LAP": "damaged", "MSE": "missing"}}}}
+  },
+  {
+    "id": "H06", "title": "The last item of a half-received bill",
+    "text": "جانا من شركة ب سويتش واحد",
+    "planted": [],
+    "expect": {"bills": {"B-2010": {"pay": 950, "hold": 0, "lines": {"SWT": "received"}}}}
+  },
+  {
+    "id": "H07", "title": "Switches of another brand than ordered",
+    "text": "شركة ج جابت سويتشين بس مو نفس الموديل اللي طلبناه، جايبين نت جير",
+    "planted": ["wrong_model", "missing"],
+    "expect": {"bills": {"C-3005": {"pay": 0, "hold": 2600, "lines": {"SWT": "wrong_model", "RTR": "missing"}}}}
+  },
+  {
+    "id": "H08", "title": "Eight chairs (two scratched) and one of two desks",
+    "text": "وصلت ثمان كراسي ومكتب واحد من شركة ب، كرسيين منهم مشخوطين",
+    "planted": ["damaged", "partial"],
+    "expect": {"bills": {"B-2001": {"pay": 3900, "hold": 3000, "lines": {"CHR": "damaged", "DSK": "partial"}}}}
+  },
+  {
+    "id": "H09", "title": "English: keyboards + the two Dell monitors",
+    "text": "Company A dropped off 5 keyboards and the two Dell monitors",
+    "planted": [],
+    "expect": {"bills": {"A-1038": {"pay": 2550, "hold": 0, "lines": {"KBD": "received", "MON": "received"}}}}
+  },
+  {
+    "id": "H10", "title": "Driver says the rest comes next week",
+    "text": "من شركة أ: طابعة ومكتب، وقال المندوب الباقي يجي الأسبوع الجاي",
+    "planted": ["missing"],
+    "expect": {"bills": {"A-1042": {"pay": 2400, "hold": 2900, "lines": {"PRN": "received", "DSK": "received", "MON": "missing", "MSE": "missing"}}}}
+  },
+  {
+    "id": "H11", "title": "Two of three UPS units",
+    "text": "شركة ج جابت يو بي اس ثنتين",
+    "planted": ["partial", "missing"],
+    "expect": {"bills": {"C-3001": {"pay": 2200, "hold": 2500, "lines": {"UPS": "partial", "RTR": "missing"}}}}
+  },
+  {
+    "id": "H12", "title": "A box with ten HDMI cables",
+    "text": "وصلنا كرتون فيه عشر كيبلات HDMI من شركة ب",
+    "planted": ["missing"],
+    "expect": {"bills": {"B-2007": {"pay": 400, "hold": 2600, "lines": {"HDM": "received", "PRJ": "missing"}}}}
+  },
+  {
+    "id": "H13", "title": "A third router (only two were ordered, both received)",
+    "text": "شركة ب جابت راوتر ثالث",
+    "planted": ["duplicate"],
+    "expect": {"bills": {}, "flags": ["duplicate"]}
+  },
+  {
+    "id": "H14", "title": "\"The mouse\": on two bills, agent must ask",
+    "text": "شركة أ جابت الماوس",
+    "answer": {"prefer_bills": ["A-1042"]},
+    "planted": ["ambiguous", "missing"],
+    "expect": {"question": true, "bills": {"A-1042": {"pay": 200, "hold": 5100, "lines": {"MSE": "received", "PRN": "missing", "DSK": "missing", "MON": "missing"}}}}
+  },
+  {
+    "id": "H15", "title": "Everything on the laptop bill, all fine",
+    "text": "اللابتوبات الأربعة والماوسات الأربعة وصلت من شركة أ، كله سليم",
+    "planted": [],
+    "expect": {"bills": {"A-1050": {"pay": 16000, "hold": 0, "lines": {"LAP": "received", "MSE": "received"}}}}
+  },
+  {
+    "id": "H16", "title": "Router + two switches: other items pick the bill",
+    "text": "شركة ج: وصل راوتر واحد ومعه سويتشين",
+    "planted": [],
+    "expect": {"bills": {"C-3005": {"pay": 2600, "hold": 0, "lines": {"RTR": "received", "SWT": "received"}}}}
+  },
+  {
+    "id": "H17", "title": "English: cracked UPS case, routers not delivered",
+    "text": "Company C delivered 3 UPS units, one has a cracked case, routers not delivered",
+    "planted": ["damaged", "missing"],
+    "expect": {"bills": {"C-3001": {"pay": 2200, "hold": 2500, "lines": {"UPS": "damaged", "RTR": "missing"}}}}
   }
 ]

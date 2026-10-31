@@ -1,17 +1,18 @@
 {
   "summary": {
     "engine": "claude",
-    "cases": 2,
-    "passed": 2,
-    "planted_problems": 2,
-    "problems_caught": 2,
-    "no_touch_share": 1.0,
-    "avg_agent_seconds": 11.421
+    "cases": 17,
+    "passed": 16,
+    "planted_problems": 18,
+    "problems_caught": 17,
+    "no_touch_share": 0.882,
+    "avg_agent_seconds": 9.637,
+    "skipped": []
   },
   "results": [
     {
       "id": "H01",
-      "title": "Team sentence: printer and desk only",
+      "title": "Printer and desk only, rest later",
       "passed": true,
       "problems": [],
       "asked_question": false,
@@ -19,13 +20,13 @@
       "planted": {
         "missing": true
       },
-      "seconds": 14.659,
+      "seconds": 11.494,
       "engine": "claude",
-      "final": "تمام، سجّلت الطابعة والمكتب على فاتورة A-1042، والشاشات والماوس باقية وبنتابع المورد عليها.\nراجع الجدول واضغط تأكيد، وبعدها نبلّغ المالية تصرف قيمة اللي وصل وتوقف قيمة الباقي لين يجي."
+      "final": "I matched the printer and the desk from شركة أ to bill A-1042. What hasn't come yet will stay on hold and the bill stays open until the rest arrives.\nAfter you confirm, we'll pay for what arrived, hold the rest, and email the supplier to send what's missing."
     },
     {
       "id": "H02",
-      "title": "Team sentence: two chairs broken",
+      "title": "Two chairs broken (\"فيهم كسر\")",
       "passed": true,
       "problems": [],
       "asked_question": false,
@@ -33,9 +34,218 @@
       "planted": {
         "damaged": true
       },
-      "seconds": 8.184,
+      "seconds": 8.214,
       "engine": "claude",
-      "final": "ربطت الاستلام بفاتورة B-2001. بنبلّغ المالية تصرف قيمة الكراسي السليمة والمكاتب وتوقف مبلغ الكرسيين المكسورين.\nوبنرسل لشركة ب تقرير بالكسر ونطلب كرسيين بدالهم. اضغط \"تأكيد\" إذا كل شي تمام."
+      "final": "تمام، سجلت استلام الكراسي والمكاتب على فاتورة شركة ب، والكرسيين المكسورين بنوقف مبلغهم ونرسل للمورد تقرير بالكسر ونطلب بدالهم.\nراجع الجدول اللي على الشاشة واضغط تأكيد."
+    },
+    {
+      "id": "H03",
+      "title": "\"Batteries\" UPS and two routers, all fine",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 7.999,
+      "engine": "claude",
+      "final": "I've matched this delivery from شركة ج to فاتورة C-3001: 3 يو بي اس and 2 راوتر, all received with nothing damaged.\nAfter you confirm, I'll tell the finance team to pay the full bill and close it."
+    },
+    {
+      "id": "H04",
+      "title": "Cables short: only five came",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true
+      },
+      "seconds": 11.192,
+      "engine": "claude",
+      "final": "I've saved a draft for the projector and the 5 cables (فاتورة B-2007). Nothing has been paid or sent yet.\nبنوقف قيمة الكيبلات الناقصة وندفع الباقي، وبنراسل شركة ب عشان يكملون النقص. راجع الجدول واضغط \"تأكيد\"."
+    },
+    {
+      "id": "H05",
+      "title": "Laptop with a broken screen, mice didn't come",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 8.438,
+      "engine": "claude",
+      "final": "سجّلت الاستلام على فاتورة A-1050. بنصرف قيمة اللابتوبات السليمة، ونوقف مبلغ اللابتوب المكسور والماوسات اللي ما وصلت.\n\nوبعد ما تأكد، براسل المورد عشان يبدّل اللابتوب المكسور ويرسل الماوسات، وبتابع معه بعد ٧ أيام."
+    },
+    {
+      "id": "H06",
+      "title": "The last item of a half-received bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 14.67,
+      "engine": "claude",
+      "final": "I've linked the switch from شركة ب to its bill, and that bill is now fully received.\nTap تأكيد and I'll tell finance to pay it and close it."
+    },
+    {
+      "id": "H07",
+      "title": "Switches of another brand than ordered",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "wrong_model": true,
+        "missing": true
+      },
+      "seconds": 8.496,
+      "engine": "claude",
+      "final": "سجّلت السويتشين على فاتورة C-3005 إنها موديل غلط (نت جير بدل سيسكو)، وبنوقف الدفع ونسأل المشتريات هل نقبل البديل ولا لا. الراوتر اللي بنفس الفاتورة ما وصل، فبنراسل المورد عنه، وإذا تأكدت أكّد من الشاشة."
+    },
+    {
+      "id": "H08",
+      "title": "Eight chairs (two scratched) and one of two desks",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "partial": true
+      },
+      "seconds": 8.452,
+      "engine": "claude",
+      "final": "جهّزت الاستلام على فاتورة شركة ب. ندفع للسليم بس ونعلّق مبلغ الكراسي المشخوطة والكمية الناقصة.\n\nبعد ما تأكد، نرسل للمورد تقرير التلف ونطلب بدل الكرسيين، ونتابع معه الناقص من الكراسي والمكتب."
+    },
+    {
+      "id": "H09",
+      "title": "English: keyboards + the two Dell monitors",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 8.872,
+      "engine": "claude",
+      "final": "I matched the 5 keyboards and the 2 Dell monitors to bill A-1038. Nothing is damaged or missing, and that bill is now fully received.\n\n**Reply to the gate keeper:**\n\nتمام، الكيبوردات والشاشتين الديل كلها وصلت سليمة ومطابقة لفاتورة A-1038.\nاضغط \"تأكيد\" عشان نبلغ المالية تصرف الفاتورة كاملة وتقفلها."
+    },
+    {
+      "id": "H10",
+      "title": "Driver says the rest comes next week",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 11.055,
+      "engine": "claude",
+      "final": "I've saved a draft receipt against bill A-1042 for the printer and the desk. I took it as one of each:\n\nسجّلت استلام الطابعة والمكتب، وبنبلّغ المالية تدفع قيمتهم وتوقف قيمة الشاشات والماوس اللي ما وصلت لين توصل الأسبوع الجاي.\nوبنراسل شركة أ عن الباقي والفاتورة تظل مفتوحة. راجع الجدول واضغط تأكيد."
+    },
+    {
+      "id": "H11",
+      "title": "Two of three UPS units",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true,
+        "missing": true
+      },
+      "seconds": 6.826,
+      "engine": "claude",
+      "final": "سجّلت استلام 2 يو بي اس من شركة ج على فاتورة C-3001، والباقي ناقص وبيتعلّق مبلغه لين يوصل.\nراجع الجدول واضغط تأكيد، وبعدها نبلغ المالية ونراسل المورد عن النواقص."
+    },
+    {
+      "id": "H12",
+      "title": "A box with ten HDMI cables",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 13.456,
+      "engine": "claude",
+      "final": "سجّلت الـ١٠ كيبلات HDMI على فاتورة شركة ب، وبنصرف قيمتها. البروجكتر اللي بنفس الفاتورة ما وصل، فبنوقف مبلغه ونراسل المورد عنه.\nراجع الجدول واضغط \"تأكيد\" عشان نرسل للمالية."
+    },
+    {
+      "id": "H13",
+      "title": "A third router (only two were ordered, both received)",
+      "passed": false,
+      "problems": [
+        "expected question=False, got True",
+        "flags [] != ['duplicate']"
+      ],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "duplicate": false
+      },
+      "seconds": 5.909,
+      "engine": "claude",
+      "final": "ما سمعتك زين، عندي كم سؤال قبل ما أكمل:"
+    },
+    {
+      "id": "H14",
+      "title": "\"The mouse\": on two bills, agent must ask",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "ambiguous": true,
+        "missing": true
+      },
+      "seconds": 14.439,
+      "engine": "claude",
+      "final": "Sجلت الماوس على فاتورة A-1042، وباقي أغراض الفاتورة بتنتظر لين توصل، والمالية بتدفع بس قيمة الماوس.\nراجع الجدول واضغط تأكيد، وبعدها نرسل للمورد عن الناقص."
+    },
+    {
+      "id": "H15",
+      "title": "Everything on the laptop bill, all fine",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 7.804,
+      "engine": "claude",
+      "final": "تمام، اللابتوبات والماوسات كلها مسجلة على فاتورة شركة أ رقم A-1050، وكلها سليمة وما ناقص منها شي.\nإذا ضغطت تأكيد، بنبلغ المالية تدفع الفاتورة كاملة وتقفلها."
+    },
+    {
+      "id": "H16",
+      "title": "Router + two switches: other items pick the bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 7.714,
+      "engine": "claude",
+      "final": "سجّلت الراوتر والسويتشين على فاتورة شركة ج رقم C-3005، وهذي الفاتورة كذا اكتملت كلها.\nراجع الجدول واضغط تأكيد، وبعدها نبلّغ المالية تدفع الفاتورة كاملة وتقفلها."
+    },
+    {
+      "id": "H17",
+      "title": "English: cracked UPS case, routers not delivered",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 8.802,
+      "engine": "claude",
+      "final": "جهزت لك الاستلام على فاتورة C-3001. بنصرف قيمة جهازين يو بي اس السليمة، ونوقف قيمة الجهاز اللي كفره مكسور وقيمة الراوترات اللي ما وصلت.\nبنرسل للمورد تقرير عن الجهاز التالف ونطلب بديل، ونتابع معه الراوترات بعد 7 أيام. تأكد من البيانات واضغط تأكيد."
     }
   ]
 }

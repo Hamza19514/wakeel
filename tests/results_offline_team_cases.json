@@ -1,0 +1,265 @@
+{
+  "summary": {
+    "engine": "offline",
+    "cases": 17,
+    "passed": 11,
+    "planted_problems": 18,
+    "problems_caught": 13,
+    "no_touch_share": 0.941,
+    "avg_agent_seconds": 0.006,
+    "skipped": []
+  },
+  "results": [
+    {
+      "id": "H01",
+      "title": "Printer and desk only, rest later",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.009,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: لم يصل (3 لم يصل)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 2,400 ريال، وعلّق 2,900 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H02",
+      "title": "Two chairs broken (\"فيهم كسر\")",
+      "passed": false,
+      "problems": [
+        "B-2001: pay/hold 6900/0 != 6000/900",
+        "B-2001 CHR: received != damaged"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": false
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2001:\n  • كرسي ×10: استُلم (10 سليم)\n  • مكتب ×2: استُلم (2 سليم)\n  ادفع 6,900 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H03",
+      "title": "\"Batteries\" UPS and two routers, all fine",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.007,
+      "engine": "offline",
+      "final": "الفاتورة C-3001:\n  • يو بي اس ×3: استُلم (3 سليم)\n  • راوتر ×2: استُلم (2 سليم)\n  ادفع 4,700 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H04",
+      "title": "Cables short: only five came",
+      "passed": false,
+      "problems": [
+        "bills [] != expected ['B-2007']"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": false
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "تأكيد؟"
+    },
+    {
+      "id": "H05",
+      "title": "Laptop with a broken screen, mice didn't come",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1050:\n  • لابتوب ×4: تالف (3 سليم، 1 تالف)\n  • ماوس ×4: لم يصل (4 لم يصل)\n  ادفع 11,400 ريال، وعلّق 4,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H06",
+      "title": "The last item of a half-received bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2010:\n  • سويتش ×1: استُلم (1 سليم)\n  ادفع 950 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H07",
+      "title": "Switches of another brand than ordered",
+      "passed": false,
+      "problems": [
+        "C-3005: pay/hold 1900/700 != 0/2600",
+        "C-3005 SWT: received != wrong_model"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "wrong_model": false,
+        "missing": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "الفاتورة C-3005:\n  • راوتر ×1: لم يصل (1 لم يصل)\n  • سويتش ×2: استُلم (2 سليم)\n  ادفع 1,900 ريال، وعلّق 700 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H08",
+      "title": "Eight chairs (two scratched) and one of two desks",
+      "passed": false,
+      "problems": [
+        "B-2001: pay/hold 4800/2100 != 3900/3000",
+        "B-2001 CHR: partial != damaged"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": false,
+        "partial": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2001:\n  • كرسي ×10: استلام جزئي (8 سليم، 2 لم يصل)\n  • مكتب ×2: استلام جزئي (1 سليم، 1 لم يصل)\n  ادفع 4,800 ريال، وعلّق 2,100 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H09",
+      "title": "English: keyboards + the two Dell monitors",
+      "passed": false,
+      "problems": [
+        "A-1038: pay/hold 1800/750 != 2550/0",
+        "A-1038 KBD: wrong_model != received"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1038:\n  • شاشة ×2: استُلم (2 سليم)\n  • كيبورد ×5: موديل مختلف (5 موديل مختلف (Dell))\n  ادفع 1,800 ريال، وعلّق 750 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H10",
+      "title": "Driver says the rest comes next week",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: لم يصل (3 لم يصل)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 2,400 ريال، وعلّق 2,900 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H11",
+      "title": "Two of three UPS units",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true,
+        "missing": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "الفاتورة C-3001:\n  • يو بي اس ×3: استلام جزئي (2 سليم، 1 لم يصل)\n  • راوتر ×2: لم يصل (2 لم يصل)\n  ادفع 2,200 ريال، وعلّق 2,500 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H12",
+      "title": "A box with ten HDMI cables",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.007,
+      "engine": "offline",
+      "final": "الفاتورة B-2007:\n  • بروجكتر ×1: لم يصل (1 لم يصل)\n  • كيبل HDMI ×10: استُلم (10 سليم)\n  ادفع 400 ريال، وعلّق 2,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H13",
+      "title": "A third router (only two were ordered, both received)",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "⚠ Router: already fully received on bill B-2010. Possible duplicate delivery or duplicate bill - do not pay twice.\nتأكيد؟"
+    },
+    {
+      "id": "H14",
+      "title": "\"The mouse\": on two bills, agent must ask",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "ambiguous": true,
+        "missing": true
+      },
+      "seconds": 0.008,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: لم يصل (1 لم يصل)\n  • مكتب ×1: لم يصل (1 لم يصل)\n  • شاشة ×3: لم يصل (3 لم يصل)\n  • ماوس ×1: استُلم (1 سليم)\n  ادفع 200 ريال، وعلّق 5,100 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H15",
+      "title": "Everything on the laptop bill, all fine",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1050:\n  • لابتوب ×4: استُلم (4 سليم)\n  • ماوس ×4: استُلم (4 سليم)\n  ادفع 16,000 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H16",
+      "title": "Router + two switches: other items pick the bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.007,
+      "engine": "offline",
+      "final": "الفاتورة C-3005:\n  • راوتر ×1: استُلم (1 سليم)\n  • سويتش ×2: استُلم (2 سليم)\n  ادفع 2,600 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "H17",
+      "title": "English: cracked UPS case, routers not delivered",
+      "passed": false,
+      "problems": [
+        "C-3001: pay/hold 3300/1400 != 2200/2500",
+        "C-3001 UPS: received != damaged"
+      ],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": false,
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة C-3001:\n  • يو بي اس ×3: استُلم (3 سليم)\n  • راوتر ×2: لم يصل (2 لم يصل)\n  ادفع 3,300 ريال، وعلّق 1,400 ريال.\nتأكيد؟"
+    }
+  ]
+}

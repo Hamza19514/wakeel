@@ -7,7 +7,9 @@ tests/results.md and tests/results.json.
     python run_trials.py offline                  # force the offline engine
     python run_trials.py claude tests/team.json   # another test file, e.g. sentences your team wrote
     python run_trials.py claude tests/test_deliveries.json T11,T15   # only some cases
+    python run_trials.py claude tests/photo_cases.json                # photos of delivery notes (Claude only)
 """
+import base64
 import json
 import os
 import sys
@@ -45,7 +47,14 @@ def run_case(case, path):
         tools.confirm_delivery(conn, d)
 
     t0 = time.perf_counter()
-    if "rfid" in case:
+    if "image" in case:
+        if agent.engine_name() != "claude":
+            return {"id": case["id"], "title": case["title"], "skipped": "photo reading needs Claude"}
+        with open(os.path.join(HERE, case["image"]), "rb") as f:
+            image = {"media_type": "image/png", "data": base64.b64encode(f.read()).decode()}
+        d = tools.start_delivery(conn, source="photo")
+        res = agent.handle(conn, d, image=image)
+    elif "rfid" in case:
         d = tools.start_delivery(conn, source="rfid")
         res = agent.handle(conn, d, supplier_id=case["rfid"]["supplier_id"], items=case["rfid"]["items"])
     else:
@@ -100,12 +109,20 @@ def main():
         only = sys.argv[3].split(",")
         cases = [c for c in cases if c["id"] in only]
     tmp = os.path.join(tempfile.mkdtemp(), "trial.db")
-    results = []
+    results, skipped = [], []
     for c in cases:
-        results.append(run_case(c, tmp))
-        print(f"{c['id']}: {'PASS' if results[-1]['passed'] else 'FAIL'}", flush=True)
+        r = run_case(c, tmp)
+        if r.get("skipped"):
+            skipped.append(r)
+            print(f"{c['id']}: SKIPPED ({r['skipped']})", flush=True)
+            continue
+        results.append(r)
+        print(f"{c['id']}: {'PASS' if r['passed'] else 'FAIL'}", flush=True)
 
     n = len(results)
+    if not n:
+        print("\nNothing to score: every case was skipped (photo cases need the Claude engine).")
+        return
     passed = sum(r["passed"] for r in results)
     planted = sum(len(r["planted"]) for r in results)
     found = sum(v for r in results for v in r["planted"].values())
@@ -115,12 +132,14 @@ def main():
         "engine": results[0]["engine"], "cases": n, "passed": passed,
         "planted_problems": planted, "problems_caught": found,
         "no_touch_share": round(no_touch / n, 3), "avg_agent_seconds": round(avg, 3),
+        "skipped": [r["id"] for r in skipped],
     }
 
-    md = ["# WAKEEL trial results", "", f"Test file: `{os.path.relpath(test_file, HERE)}`  ",
+    md = ["# WAKEEL trial results", "", f"Test file: `{os.path.relpath(test_file, HERE).replace(os.sep, '/')}`  ",
           f"Engine: **{summary['engine']}** · Cases: **{n}** · Passed: **{passed}/{n}**  ",
           f"Planted problems caught: **{found}/{planted}** · No-touch share: **{no_touch}/{n}** "
-          f"(reached the confirm screen with no question) · Avg agent time: **{avg:.2f}s**", "",
+          f"(reached the confirm screen with no question) · Avg agent time: **{avg:.2f}s**"
+          + (f"  \nSkipped: {', '.join(r['id'] + ' (' + r['skipped'] + ')' for r in skipped)}" if skipped else ""), "",
           "| Case | Scenario | Result | Question asked | Planted problems caught | Notes |",
           "|---|---|---|---|---|---|"]
     for r in results:

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "P01", "title": "Printed delivery note: 2 of 3 monitors, no mouse",
+    "image": "tests/images/note_company_a.png",
+    "planted": ["partial", "missing"],
+    "expect": {"bills": {"A-1042": {"pay": 4200, "hold": 1100, "lines": {"PRN": "received", "DSK": "received", "MON": "partial", "MSE": "missing"}}}}
+  },
+  {
+    "id": "P02", "title": "Note with a handwritten remark: projector broken",
+    "image": "tests/images/note_company_b.png",
+    "planted": ["damaged"],
+    "expect": {"bills": {"B-2007": {"pay": 400, "hold": 2600, "lines": {"PRJ": "damaged", "HDM": "received"}}}}
+  },
+  {
+    "id": "P03", "title": "English delivery note, all received",
+    "image": "tests/images/note_company_c.png",
+    "planted": [],
+    "expect": {"bills": {"C-3001": {"pay": 4700, "hold": 0, "lines": {"UPS": "received", "RTR": "received"}}}}
+  }
+]

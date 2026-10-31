@@ -1,31 +1,33 @@
 {
   "summary": {
     "engine": "claude",
-    "cases": 2,
-    "passed": 2,
-    "planted_problems": 2,
-    "problems_caught": 2,
+    "cases": 3,
+    "passed": 3,
+    "planted_problems": 3,
+    "problems_caught": 3,
     "no_touch_share": 1.0,
-    "avg_agent_seconds": 11.421
+    "avg_agent_seconds": 11.557,
+    "skipped": []
   },
   "results": [
     {
-      "id": "H01",
-      "title": "Team sentence: printer and desk only",
+      "id": "P01",
+      "title": "Printed delivery note: 2 of 3 monitors, no mouse",
       "passed": true,
       "problems": [],
       "asked_question": false,
       "no_touch": true,
       "planted": {
+        "partial": true,
         "missing": true
       },
-      "seconds": 14.659,
+      "seconds": 12.138,
       "engine": "claude",
-      "final": "تمام، سجّلت الطابعة والمكتب على فاتورة A-1042، والشاشات والماوس باقية وبنتابع المورد عليها.\nراجع الجدول واضغط تأكيد، وبعدها نبلّغ المالية تصرف قيمة اللي وصل وتوقف قيمة الباقي لين يجي."
+      "final": "جهّزت مسودة الاستلام على أمر الشراء PO-501 من شركة أ. باقي شاشة وماوس ما وصلت، فبنبلغ المالية تدفع قيمة اللي وصل وتمسك مبلغ الناقص.\nوبنرسل إيميل للمورد عن الناقص ونتابع معه بعد ٧ أيام. راجع الجدول وإذا كل شي تمام اضغط \"تأكيد\"."
     },
     {
-      "id": "H02",
-      "title": "Team sentence: two chairs broken",
+      "id": "P02",
+      "title": "Note with a handwritten remark: projector broken",
       "passed": true,
       "problems": [],
       "asked_question": false,
@@ -33,9 +35,21 @@
       "planted": {
         "damaged": true
       },
-      "seconds": 8.184,
+      "seconds": 10.184,
       "engine": "claude",
-      "final": "ربطت الاستلام بفاتورة B-2001. بنبلّغ المالية تصرف قيمة الكراسي السليمة والمكاتب وتوقف مبلغ الكرسيين المكسورين.\nوبنرسل لشركة ب تقرير بالكسر ونطلب كرسيين بدالهم. اضغط \"تأكيد\" إذا كل شي تمام."
+      "final": "I've saved a draft receipt for شركة ب on bill B-2007. The cables came in fine, and the projector came in broken, as the guard's note on the delivery paper says.\n\nبنصرف قيمة الكيابل ونوقف مبلغ البروجكتر المكسور، ونرسل للمورد تقرير تلف ونطلب بديل.\nراجع الجدول واضغط تأكيد."
+    },
+    {
+      "id": "P03",
+      "title": "English delivery note, all received",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 12.35,
+      "engine": "claude",
+      "final": "جهزت لك استلام شركة ج على فاتورة C-3001. كل الأغراض وصلت كاملة وسليمة.\nإذا أكدت، بنبلغ المالية تصرف الفاتورة كاملة وتقفلها. اضغط تأكيد إذا كل شي تمام."
     }
   ]
 }

@@ -6,7 +6,8 @@
     "planted_problems": 23,
     "problems_caught": 23,
     "no_touch_share": 0.895,
-    "avg_agent_seconds": 0.006
+    "avg_agent_seconds": 0.007,
+    "skipped": []
   },
   "results": [
     {
@@ -35,7 +36,7 @@
         "damaged": true,
         "missing": true
       },
-      "seconds": 0.006,
+      "seconds": 0.009,
       "engine": "offline",
       "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: تالف (2 سليم، 1 تالف)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 4,200 ريال، وعلّق 1,100 ريال.\nتأكيد؟"
     },
@@ -47,7 +48,7 @@
       "asked_question": false,
       "no_touch": true,
       "planted": {},
-      "seconds": 0.006,
+      "seconds": 0.008,
       "engine": "offline",
       "final": "الفاتورة B-2001:\n  • كرسي ×10: استُلم (10 سليم)\n  • مكتب ×2: استُلم (2 سليم)\n  ادفع 6,900 ريال، وعلّق 0 ريال.\nتأكيد؟"
     },
@@ -62,7 +63,7 @@
         "partial": true,
         "missing": true
       },
-      "seconds": 0.006,
+      "seconds": 0.011,
       "engine": "offline",
       "final": "الفاتورة B-2001:\n  • كرسي ×10: استلام جزئي (6 سليم، 4 لم يصل)\n  • مكتب ×2: لم يصل (2 لم يصل)\n  ادفع 2,700 ريال، وعلّق 4,200 ريال.\nتأكيد؟"
     },
@@ -76,7 +77,7 @@
       "planted": {
         "wrong_model": true
       },
-      "seconds": 0.005,
+      "seconds": 0.007,
       "engine": "offline",
       "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: موديل مختلف (3 موديل مختلف (Samsung))\n  • ماوس ×1: استُلم (1 سليم)\n  ادفع 2,600 ريال، وعلّق 2,700 ريال.\nتأكيد؟"
     },
@@ -90,7 +91,7 @@
       "planted": {
         "split": true
       },
-      "seconds": 0.006,
+      "seconds": 0.007,
       "engine": "offline",
       "final": "الفاتورة A-1038:\n  • شاشة ×2: لم يصل (2 لم يصل)\n  • كيبورد ×5: استُلم (5 سليم)\n  ادفع 750 ريال، وعلّق 1,800 ريال.\nالفاتورة A-1050:\n  • لابتوب ×4: استُلم (4 سليم)\n  • ماوس ×4: استُلم (4 سليم)\n  ادفع 16,000 ريال، وعلّق 0 ريال.\nتأكيد؟"
     },
@@ -105,7 +106,7 @@
         "ambiguous": true,
         "partial": true
       },
-      "seconds": 0.009,
+      "seconds": 0.008,
       "engine": "offline",
       "final": "الفاتورة A-1038:\n  • شاشة ×2: استلام جزئي (1 سليم، 1 لم يصل)\n  • كيبورد ×5: لم يصل (5 لم يصل)\n  ادفع 900 ريال، وعلّق 1,650 ريال.\nتأكيد؟"
     },
@@ -119,7 +120,7 @@
       "planted": {
         "missing": true
       },
-      "seconds": 0.007,
+      "seconds": 0.006,
       "engine": "offline",
       "final": "الفاتورة C-3005:\n  • راوتر ×1: استُلم (1 سليم)\n  • سويتش ×2: لم يصل (2 لم يصل)\n  ادفع 700 ريال، وعلّق 1,900 ريال.\nتأكيد؟"
     },
@@ -145,7 +146,7 @@
       "planted": {
         "duplicate": true
       },
-      "seconds": 0.005,
+      "seconds": 0.006,
       "engine": "offline",
       "final": "⚠ Router x2: already fully received on bill B-2010. Possible duplicate delivery or duplicate bill - do not pay twice.\nتأكيد؟"
     },
@@ -159,7 +160,7 @@
       "planted": {
         "duplicate": true
       },
-      "seconds": 0.005,
+      "seconds": 0.008,
       "engine": "offline",
       "final": "⚠ Office chair x10: already fully received on bill B-2001. Possible duplicate delivery or duplicate bill - do not pay twice.\nتأكيد؟"
     },
@@ -202,7 +203,7 @@
         "damaged": true,
         "partial": true
       },
-      "seconds": 0.006,
+      "seconds": 0.007,
       "engine": "offline",
       "final": "الفاتورة A-1050:\n  • لابتوب ×4: تالف (2 سليم، 1 تالف، 1 لم يصل)\n  • ماوس ×4: استُلم (4 سليم)\n  ادفع 8,400 ريال، وعلّق 7,600 ريال.\nتأكيد؟"
     },
@@ -216,9 +217,9 @@
       "planted": {
         "unexpected_item": true
       },
-      "seconds": 0.005,
+      "seconds": 0.008,
       "engine": "offline",
-      "final": "⚠ Printer x?: not on any open bill from this supplier.\nتأكيد؟"
+      "final": "⚠ Printer: not on any open bill from this supplier.\nتأكيد؟"
     },
     {
       "id": "T16",
@@ -228,7 +229,7 @@
       "asked_question": false,
       "no_touch": true,
       "planted": {},
-      "seconds": 0.005,
+      "seconds": 0.006,
       "engine": "offline",
       "final": "الفاتورة B-2007:\n  • بروجكتر ×1: استُلم (1 سليم)\n  • كيبل HDMI ×10: استُلم (10 سليم)\n  ادفع 3,000 ريال، وعلّق 0 ريال.\nتأكيد؟"
     },
@@ -272,7 +273,7 @@
         "duplicate": true,
         "missing": true
       },
-      "seconds": 0.005,
+      "seconds": 0.007,
       "engine": "offline",
       "final": "الفاتورة C-3005:\n  • راوتر ×1: لم يصل (1 لم يصل)\n  • سويتش ×2: استُلم (2 سليم)\n  ادفع 1,900 ريال، وعلّق 700 ريال.\n⚠ Network switch: 2 more than is outstanding on all open bills. Possible duplicate or over-delivery - extra units not accepted.\nتأكيد؟"
     }
