@@ -1,0 +1,125 @@
+[
+  {
+    "id": "T01", "title": "Brief demo: damaged monitor, missing mouse",
+    "text": "وصلت من شركة أ: الطابعة والمكتب وثلاث شاشات، وحدة منها مكسورة. الماوس ما وصل.",
+    "planted": ["damaged", "missing"],
+    "expect": {"bills": {"A-1042": {"pay": 4200, "hold": 1100, "lines": {"PRN": "received", "DSK": "received", "MON": "damaged", "MSE": "missing"}}}}
+  },
+  {
+    "id": "T02", "title": "Same delivery, different dialect wording",
+    "text": "شركة أ جابوا الطابعة والمكتب و٣ شاشات، وحده منهم خربانه، والماوس ماجا",
+    "planted": ["damaged", "missing"],
+    "expect": {"bills": {"A-1042": {"pay": 4200, "hold": 1100, "lines": {"PRN": "received", "DSK": "received", "MON": "damaged", "MSE": "missing"}}}}
+  },
+  {
+    "id": "T03", "title": "All good: full delivery closes the bill",
+    "text": "وصلت من شركة ب الكراسي العشرة والمكتبين، كله سليم",
+    "planted": [],
+    "expect": {"bills": {"B-2001": {"pay": 6900, "hold": 0, "lines": {"CHR": "received", "DSK": "received"}}}}
+  },
+  {
+    "id": "T04", "title": "Partial delivery: 6 of 10 chairs",
+    "text": "شركة ب جابت ست كراسي بس",
+    "planted": ["partial", "missing"],
+    "expect": {"bills": {"B-2001": {"pay": 2700, "hold": 4200, "lines": {"CHR": "partial", "DSK": "missing"}}}}
+  },
+  {
+    "id": "T05", "title": "Wrong model: Samsung monitors instead of Dell",
+    "text": "من شركة أ وصلت ثلاث شاشات سامسونج بدل ديل، والطابعة والمكتب والماوس",
+    "planted": ["wrong_model"],
+    "expect": {"bills": {"A-1042": {"pay": 2600, "hold": 2700, "lines": {"PRN": "received", "DSK": "received", "MON": "wrong_model", "MSE": "received"}}}}
+  },
+  {
+    "id": "T06", "title": "One delivery, two bills (keyboards + laptops)",
+    "text": "شركة أ: خمس كيبوردات واربع لابتوبات مع اربع ماوسات",
+    "planted": ["split"],
+    "expect": {"bills": {
+      "A-1038": {"pay": 750, "hold": 1800, "lines": {"KBD": "received", "MON": "missing"}},
+      "A-1050": {"pay": 16000, "hold": 0, "lines": {"LAP": "received", "MSE": "received"}}}}
+  },
+  {
+    "id": "T07", "title": "Same item on two bills, nothing to tell them apart: agent asks",
+    "text": "شركة أ جابت شاشة وحدة",
+    "answer": {"prefer_bills": ["A-1038"]},
+    "planted": ["ambiguous", "partial"],
+    "expect": {"question": true, "bills": {"A-1038": {"pay": 900, "hold": 1650, "lines": {"MON": "partial", "KBD": "missing"}}}}
+  },
+  {
+    "id": "T08", "title": "Same item on two bills, quantity decides",
+    "text": "وصل من شركة ج راوتر واحد",
+    "planted": ["missing"],
+    "expect": {"bills": {"C-3005": {"pay": 700, "hold": 1900, "lines": {"RTR": "received", "SWT": "missing"}}}}
+  },
+  {
+    "id": "T09", "title": "Same item on two bills, other items decide",
+    "text": "شركة ج: راوترين وثلاث يو بي اس",
+    "planted": [],
+    "expect": {"bills": {"C-3001": {"pay": 4700, "hold": 0, "lines": {"RTR": "received", "UPS": "received"}}}}
+  },
+  {
+    "id": "T10", "title": "Item already received earlier: possible duplicate",
+    "text": "شركة ب جابت راوترين",
+    "planted": ["duplicate"],
+    "expect": {"bills": {}, "flags": ["duplicate"]}
+  },
+  {
+    "id": "T11", "title": "Same delivery reported twice",
+    "setup": ["وصلت من شركة ب الكراسي العشرة والمكتبين"],
+    "text": "شركة ب: وصلت عشر كراسي",
+    "planted": ["duplicate"],
+    "expect": {"bills": {}, "flags": ["duplicate"]}
+  },
+  {
+    "id": "T12", "title": "Gate keeper names the bill number",
+    "text": "الفاتورة A-1038 وصلت منها الشاشتين",
+    "planted": ["missing"],
+    "expect": {"bills": {"A-1038": {"pay": 1800, "hold": 750, "lines": {"MON": "received", "KBD": "missing"}}}}
+  },
+  {
+    "id": "T13", "title": "English input, damaged projector",
+    "text": "Company B: projector and 10 HDMI cables, projector is broken",
+    "planted": ["damaged"],
+    "expect": {"bills": {"B-2007": {"pay": 400, "hold": 2600, "lines": {"PRJ": "damaged", "HDM": "received"}}}}
+  },
+  {
+    "id": "T14", "title": "Partial + damaged laptops, hold above manager threshold",
+    "text": "شركة أ: وصلت ثلاث لابتوبات واحد منها مشخوط، والماوسات الاربعة",
+    "planted": ["damaged", "partial"],
+    "expect": {"bills": {"A-1050": {"pay": 8400, "hold": 7600, "lines": {"LAP": "damaged", "MSE": "received"}}}, "alerts": ["high_hold"]}
+  },
+  {
+    "id": "T15", "title": "Item not on any open bill",
+    "text": "شركة ج جابت طابعة",
+    "planted": ["unexpected_item"],
+    "expect": {"bills": {}, "flags": ["unexpected_item"]}
+  },
+  {
+    "id": "T16", "title": "Simulated RFID scan (no typing)",
+    "rfid": {"supplier_id": "SUP-B", "items": [
+      {"item_code": "PRJ", "qty_delivered": 1, "qty_damaged": 0, "delivered_model": null, "not_delivered": false},
+      {"item_code": "HDM", "qty_delivered": 10, "qty_damaged": 0, "delivered_model": null, "not_delivered": false}]},
+    "planted": [],
+    "expect": {"bills": {"B-2007": {"pay": 3000, "hold": 0, "lines": {"PRJ": "received", "HDM": "received"}}}}
+  },
+  {
+    "id": "T17", "title": "Supplier not said: agent asks which company",
+    "text": "وصلت ثلاث شاشات",
+    "answer": {"supplier_id": "SUP-A"},
+    "planted": ["missing"],
+    "expect": {"question": true, "bills": {"A-1042": {"pay": 2700, "hold": 2600, "lines": {"MON": "received", "PRN": "missing", "DSK": "missing", "MSE": "missing"}}}}
+  },
+  {
+    "id": "T18", "title": "More units than one bill holds: split across bills",
+    "text": "شركة أ جابت خمس شاشات",
+    "planted": ["split", "missing"],
+    "expect": {"bills": {
+      "A-1038": {"pay": 1800, "hold": 750, "lines": {"MON": "received", "KBD": "missing"}},
+      "A-1042": {"pay": 2700, "hold": 2600, "lines": {"MON": "received", "PRN": "missing", "DSK": "missing", "MSE": "missing"}}}}
+  },
+  {
+    "id": "T19", "title": "Over-delivery beyond all open bills",
+    "text": "شركة ج جابت اربع سويتشات",
+    "planted": ["duplicate", "missing"],
+    "expect": {"bills": {"C-3005": {"pay": 1900, "hold": 700, "lines": {"SWT": "received", "RTR": "missing"}}}, "flags": ["duplicate"]}
+  }
+]

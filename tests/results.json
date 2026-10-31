@@ -1,0 +1,280 @@
+{
+  "summary": {
+    "engine": "claude",
+    "cases": 19,
+    "passed": 19,
+    "planted_problems": 23,
+    "problems_caught": 23,
+    "no_touch_share": 0.895,
+    "avg_agent_seconds": 10.162
+  },
+  "results": [
+    {
+      "id": "T01",
+      "title": "Brief demo: damaged monitor, missing mouse",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 16.843,
+      "engine": "claude",
+      "final": "طابقت التوريد على فاتورة A-1042. بعد تأكيدك بنبلّغ المالية تصرف السليم وتوقف مبلغ الشاشة المكسورة والماوس.\nوبنرسل للمورد إيميل نطلب فيه بديل للشاشة المكسورة ونسأل عن الماوس اللي ما وصل، والفاتورة تبقى مفتوحة لين يكمل التوريد."
+    },
+    {
+      "id": "T02",
+      "title": "Same delivery, different dialect wording",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 9.17,
+      "engine": "claude",
+      "final": "سجلت الاستلام على فاتورة A-1042. بنصرف قيمة اللي وصل سليم، ونوقف مبلغ الشاشة الخربانة والماوس اللي ما جا، ونراسل المورد يبدلها ويرسل الناقص.\nراجع الجدول وأكد بضغطة على زر التأكيد."
+    },
+    {
+      "id": "T03",
+      "title": "All good: full delivery closes the bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 6.9,
+      "engine": "claude",
+      "final": "تمام، سجّلت الكراسي العشرة والمكتبين كاملين وسليمين على فاتورة شركة ب، وما فيه أي ملاحظة عليها.\nاضغط تأكيد، وبعدها نبلّغ المالية تدفع الفاتورة كاملة وتقفلها."
+    },
+    {
+      "id": "T04",
+      "title": "Partial delivery: 6 of 10 chairs",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true,
+        "missing": true
+      },
+      "seconds": 7.927,
+      "engine": "claude",
+      "final": "سجلت ٦ كراسي من شركة ب على فاتورة B-2001، والباقي ناقص: ٤ كراسي والمكاتب ما وصلت.\nبعد ما تأكد، بنبلغ المالية تدفع حق اللي وصل وتوقف الباقي، ونراسل المورد عن الناقص ونخلي الفاتورة مفتوحة."
+    },
+    {
+      "id": "T05",
+      "title": "Wrong model: Samsung monitors instead of Dell",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "wrong_model": true
+      },
+      "seconds": 12.844,
+      "engine": "claude",
+      "final": "تمام، سجّلت الاستلام على فاتورة A-1042: الطابعة والمكتب والماوس انحسبت مستلمة، والشاشات السامسونج الثلاث انحسبت موديل غلط بدل الديل.\nبعد ما تأكد، بنعلّم المالية تدفع قيمة الطابعة والمكتب والماوس وتوقف دفع الشاشات، ونسأل المشتريات إذا يقبلون السامسونج بدل الديل. راجع الجدول واضغط تأكيد."
+    },
+    {
+      "id": "T06",
+      "title": "One delivery, two bills (keyboards + laptops)",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "split": true
+      },
+      "seconds": 10.268,
+      "engine": "claude",
+      "final": "تمام، طابقت كل الأغراض مع فواتير شركة أ. الشاشات اللي بفاتورة الكيبوردات ما وصلت، فبنبلغ المالية تصرف المبلغ اللي وصل وتوقف مبلغ الشاشات لين توصل، وبنراسل المورد يتابع.\nفاتورة اللابتوبات والماوسات بنصرفها كاملة ونقفلها. راجع الجدول واضغط تأكيد."
+    },
+    {
+      "id": "T07",
+      "title": "Same item on two bills, nothing to tell them apart: agent asks",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "ambiguous": true,
+        "partial": true
+      },
+      "seconds": 13.367,
+      "engine": "claude",
+      "final": "سجلت الشاشة على فاتورة A-1038. باقي شاشة والكيبوردات ما وصلت، فبنبلغ المالية تدفع قيمة الشاشة اللي وصلت بس وتوقف الباقي، ونراسل المورد عشان النواقص.\nإذا كل شي تمام اضغط تأكيد."
+    },
+    {
+      "id": "T08",
+      "title": "Same item on two bills, quantity decides",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 8.571,
+      "engine": "claude",
+      "final": "سجّلت الراوتر على فاتورة C-3005، وبنكلّم المالية يصرفون قيمته ويمسكون مبلغ السويتشين اللي ما وصلوا للحين.\nوبنرسل إيميل للمورد عن السويتشات ونتابع معه بعد أسبوع، وإذا كل شي تمام اضغط تأكيد."
+    },
+    {
+      "id": "T09",
+      "title": "Same item on two bills, other items decide",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 8.626,
+      "engine": "claude",
+      "final": "تمام، سجلت الراوترين والثلاث يو بي اس على فاتورة شركة ج رقم C-3001، وكلها وصلت كاملة.\nاضغط تأكيد عشان نبلغ المالية تدفع الفاتورة كاملة وتقفلها."
+    },
+    {
+      "id": "T10",
+      "title": "Item already received earlier: possible duplicate",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true
+      },
+      "seconds": 9.118,
+      "engine": "claude",
+      "final": "⚠️ الراوترين (٢) من شركة ب مستلمين كاملين قبل كذا على فاتورة B-2010. يمكن تكون شحنة مكررة أو فاتورة مكررة، فما راح نسجلهم للدفع.\nلا تستلمهم وراجع المشتريات قبل لا تضغط تأكيد."
+    },
+    {
+      "id": "T11",
+      "title": "Same delivery reported twice",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true
+      },
+      "seconds": 8.504,
+      "engine": "claude",
+      "final": "الكراسي العشر من شركة ب مستلمة كاملة من قبل على فاتورة B-2001، وما عليها فاتورة مفتوحة. سجلتها كتوريد مكرر محتمل، ولا راح يندفع عليها شي.\nلا تستلمها قبل ما تراجع المشتريات، وبعدها اضغط تأكيد."
+    },
+    {
+      "id": "T12",
+      "title": "Gate keeper names the bill number",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 10.323,
+      "engine": "claude",
+      "final": "I registered the 2 screens (شاشات) from bill A-1038 from شركة أ. The 5 keyboards (كيبوردات) on the same bill are marked missing (ناقصة) because you didn't mention them.\n\nسجلت الشاشتين من فاتورة A-1038 (شركة أ)، والكيبوردات اللي بنفس الفاتورة انحسبت ناقصة. بعد ما تأكد، بنبلغ المالية تصرف قيمة الشاشات وتوقف قيمة الكيبوردات، ونراسل المورد عن الناقص. إذا الكيبوردات وصلت، قلي."
+    },
+    {
+      "id": "T13",
+      "title": "English input, damaged projector",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true
+      },
+      "seconds": 8.165,
+      "engine": "claude",
+      "final": "جهزت لك الاستلام: كيابل HDMI بنمشي دفعها، وقيمة البروجكتر بنوقفها لأنه وصل خربان.\nوبنرسل للمورد تقرير بالتلف ونطلب منه بروجكتر بداله، بس اضغط تأكيد."
+    },
+    {
+      "id": "T14",
+      "title": "Partial + damaged laptops, hold above manager threshold",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "partial": true
+      },
+      "seconds": 12.154,
+      "engine": "claude",
+      "final": "سجّلت الاستلام على فاتورة A-1050. بندفع قيمة اللي وصل سليم، وبنوقّف قيمة اللابتوب المشخوط واللابتوب اللي ما وصل.\nوبعد ما تأكد، بنرسل للمورد تقرير التلف ونطلب بديل، ونتابع معه على اللابتوب الناقص."
+    },
+    {
+      "id": "T15",
+      "title": "Item not on any open bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "unexpected_item": true
+      },
+      "seconds": 12.696,
+      "engine": "claude",
+      "final": "I listed the printer, but it isn't on any open bill from Company C (شركة ج), so it's flagged and nothing will be paid for it:\n\nالطابعة مو موجودة في أي فاتورة مفتوحة لشركة ج، فسجلتها كصنف غير متوقع وما راح ينصرف لها شي.\nلا تستلمها نهائي لين المشتريات يتأكدون منها، وبعدها أكد المسودة من الشاشة."
+    },
+    {
+      "id": "T16",
+      "title": "Simulated RFID scan (no typing)",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 6.067,
+      "engine": "claude",
+      "final": "I'm ready to send a full payment to finance and close bill B-2007: the projector and the HDMI cables arrived complete and undamaged.\nPlease check the table and press \"Confirm\"."
+    },
+    {
+      "id": "T17",
+      "title": "Supplier not said: agent asks which company",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 11.854,
+      "engine": "claude",
+      "final": "سجّلت الشاشات الثلاث على فاتورة A-1042. الطابعة والمكتب والماوس اللي بنفس الفاتورة ما وصلت، فبنحجز مبلغها لين توصل.\nبعد ما تأكد، نبلّغ المالية تصرف قيمة الشاشات ونراسل المورد عن الباقي."
+    },
+    {
+      "id": "T18",
+      "title": "More units than one bill holds: split across bills",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "split": true,
+        "missing": true
+      },
+      "seconds": 10.245,
+      "engine": "claude",
+      "final": "الشاشات الخمس توزعت على فاتورتين: 2 على A-1038 و 3 على A-1042. باقي الأغراض اللي بالفاتورتين ما وصلت، فبنعطي المالية خبر تصرف قيمة الشاشات وتوقف الباقي، ونرسل إيميل للمورد عن الناقص.\nراجع الجدول، وإذا كل شي تمام اضغط تأكيد."
+    },
+    {
+      "id": "T19",
+      "title": "Over-delivery beyond all open bills",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true,
+        "missing": true
+      },
+      "seconds": 9.442,
+      "engine": "claude",
+      "final": "سجّلت سويتشين على فاتورة C-3005، والسويتشين الزايدين ما انقبلوا لأنهم أكثر من المطلوب (يمكن مكررين). الراوتر انحسب ناقص، وبنبلّغ المالية تدفع المبلغ وتعلّق قيمة الراوتر، وبنراسل المورد عنه.\nراجع الجدول واضغط تأكيد، وإذا الراوتر جاء معهم قل لي وأعدّلها."
+    }
+  ]
+}

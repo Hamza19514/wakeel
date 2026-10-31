@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WAKEEL · Gate</title>
+<style>
+  :root { --bg:#f4f5f2; --card:#fff; --ink:#1d2321; --muted:#68716d; --line:#e2e5e0; --brand:#0f6b4f; --brand2:#e6f2ed;
+          --ok:#1b7f4c; --okbg:#e3f4ea; --warn:#9a6200; --warnbg:#fdf1d8; --bad:#b3261e; --badbg:#fbe5e3; --vio:#6a3fb5; --viobg:#efe7fb; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: "Segoe UI", Tahoma, system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:var(--brand); color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; }
+  header h1 { margin:0; font-size:20px; } header small { opacity:.8; font-size:12px; }
+  .badge { background:rgba(255,255,255,.18); padding:3px 8px; border-radius:999px; font-size:11px; direction:ltr; }
+  main { max-width:560px; margin:0 auto; padding:12px 16px 300px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px; margin:10px 0; }
+  .me { background:var(--brand2); border-color:#cfe5db; margin-right:40px; }
+  .bot { margin-left:20px; }
+  .who { font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; letter-spacing:.3px; }
+  button { font:inherit; border:0; border-radius:10px; padding:10px 14px; cursor:pointer; }
+  button:disabled { opacity:.45; cursor:default; }
+  .primary { background:var(--brand); color:#fff; } .ghost { background:#fff; border:1px solid var(--line); color:var(--ink); }
+  .big { width:100%; padding:14px; font-size:17px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; }
+  .chip { background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 12px; font-size:13px; }
+  .chip.sel { background:var(--brand); color:#fff; border-color:var(--brand); }
+  table { width:100%; border-collapse:collapse; font-size:14px; margin:6px 0; }
+  td, th { padding:7px 4px; border-bottom:1px solid var(--line); text-align:right; vertical-align:top; }
+  th { font-size:12px; color:var(--muted); font-weight:600; }
+  .st { display:inline-block; border-radius:999px; padding:2px 8px; font-size:12px; font-weight:600; }
+  .received { background:var(--okbg); color:var(--ok); } .partial { background:var(--warnbg); color:var(--warn); }
+  .missing, .damaged { background:var(--badbg); color:var(--bad); } .wrong_model { background:var(--viobg); color:var(--vio); }
+  .money { display:flex; gap:8px; margin:8px 0; } .money div { flex:1; border-radius:10px; padding:8px; text-align:center; }
+  .money b { display:block; font-size:18px; direction:ltr; }
+  .pay { background:var(--okbg); color:var(--ok); } .hold { background:var(--warnbg); color:var(--warn); }
+  .flag { background:var(--badbg); color:var(--bad); border-radius:10px; padding:8px; font-size:13px; margin:6px 0; direction:ltr; text-align:left; }
+  ul.next { margin:6px 0; padding-inline-start:18px; font-size:13px; color:var(--muted); direction:ltr; text-align:left; }
+  .bar { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--line); padding:10px 16px 14px; }
+  .bar .in { max-width:560px; margin:0 auto; }
+  .row { display:flex; gap:6px; align-items:flex-end; }
+  textarea { flex:1; font:inherit; font-size:16px; border:1px solid var(--line); border-radius:10px; padding:10px; resize:none; min-height:46px; }
+  .icon { width:46px; height:46px; padding:0; font-size:20px; }
+  .rec { background:var(--bad) !important; color:#fff; }
+  .muted { color:var(--muted); font-size:13px; }
+  pre { white-space:pre-wrap; font-family:inherit; margin:0; }
+  .sent { font-size:13px; } .sent h4 { margin:10px 0 4px; font-size:13px; }
+  .ltr { direction:ltr; text-align:left; }
+  a { color:var(--brand); }
+</style>
+</head>
+<body>
+<header>
+  <div><h1>وكيل WAKEEL</h1><small>استلام التوريدات · بوابة المستودع</small></div>
+  <span class="badge" id="engine">…</span>
+</header>
+<main id="log">
+  <div class="card">
+    <p style="margin-top:0">أهلاً 👋 اضغط <b>توريد جديد</b>، اختر الشركة أو اذكرها، وقل وش وصل بجملة وحدة.</p>
+    <button class="primary big" onclick="newDelivery()">+ توريد جديد</button>
+    <p class="muted">Finance screen: <a href="/finance" target="_blank">/finance</a></p>
+  </div>
+</main>
+
+<div class="bar" id="bar" hidden>
+  <div class="in">
+    <div class="chips" id="suppliers"></div>
+    <div class="chips" id="examples"></div>
+    <div class="row">
+      <textarea id="text" rows="1" placeholder="مثال: وصلت الطابعة وثلاث شاشات، وحدة منها مكسورة…"></textarea>
+      <button class="ghost icon" id="mic" title="Voice" onclick="toggleMic()">🎤</button>
+      <button class="ghost icon" title="Photo of delivery note" onclick="document.getElementById('photo').click()">📷</button>
+      <button class="primary icon" title="Send" onclick="send()">➤</button>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <button class="ghost" style="flex:1" onclick="rfid()">📡 Simulate RFID scan</button>
+    </div>
+    <input type="file" id="photo" accept="image/*" capture="environment" hidden onchange="photo(this)">
+  </div>
+</div>
+
+<script>
+const EXAMPLES = [
+  "وصلت من شركة أ: الطابعة والمكتب وثلاث شاشات، وحدة منها مكسورة. الماوس ما وصل.",
+  "من شركة أ وصلت ثلاث شاشات سامسونج بدل ديل، والطابعة والمكتب والماوس",
+  "شركة أ: خمس كيبوردات واربع لابتوبات مع اربع ماوسات",
+  "شركة ب جابت ست كراسي بس",
+  "شركة أ جابت شاشة وحدة",
+  "شركة ب جابت راوترين",
+];
+const STATUS = {received:"استُلم", partial:"جزئي", missing:"لم يصل", damaged:"تالف", wrong_model:"موديل مختلف"};
+let delivery = null, supplier = null, suppliers = [];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sar = n => Number(n).toLocaleString("en-US") + " SAR";
+
+async function api(path, body) {
+  const r = await fetch(path, {method: body === undefined ? "GET" : "POST", headers: {"Content-Type":"application/json"},
+                               body: body === undefined ? undefined : JSON.stringify(body)});
+  if (!r.ok) throw new Error((await r.json()).detail || r.statusText);
+  return r.json();
+}
+function add(html, cls) {
+  const d = document.createElement("div"); d.className = "card " + cls; d.innerHTML = html;
+  $("log").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"}); return d;
+}
+
+async function init() {
+  const i = await api("/api/info");
+  suppliers = i.suppliers;
+  $("engine").textContent = i.engine === "claude" ? "Claude agent · " + i.model : "Offline engine";
+  $("examples").innerHTML = EXAMPLES.map((e, k) => `<button class="chip" onclick="$('text').value=EXAMPLES[${k}]">مثال ${k+1}</button>`).join("");
+}
+
+async function newDelivery() {
+  delivery = (await api("/api/deliveries", {source:"text"})).delivery_id; supplier = null;
+  $("bar").hidden = false;
+  $("suppliers").innerHTML = suppliers.map(s => `<button class="chip" data-id="${s.id}" onclick="pick('${s.id}')">${esc(s.name_ar)}</button>`).join("");
+  add(`<div class="who">WAKEEL · ${delivery}</div>توريد جديد. اختر الشركة (أو اذكرها في الجملة)، وقل وش وصل.`, "bot");
+}
+function pick(id) {
+  supplier = supplier === id ? null : id;
+  document.querySelectorAll("#suppliers .chip").forEach(c => c.classList.toggle("sel", c.dataset.id === supplier));
+}
+
+async function send(extra) {
+  const text = extra ? null : $("text").value.trim();
+  if (!delivery || (!text && !extra)) return;
+  if (text) add(`<div class="who">حارس البوابة${text === voiceText ? " · 🎤" : ""}</div>${esc(text)}`, "me");
+  $("text").value = "";
+  const wait = add(`<div class="who">WAKEEL</div><span class="muted">يفكّر…</span>`, "bot");
+  try {
+    // Send the other speech guesses only if the gate keeper did not edit the heard text.
+    const speech = text && text === voiceText && voiceGuesses.length > 1 ? voiceGuesses : null;
+    voiceText = null; voiceGuesses = [];
+    const r = await api(`/api/deliveries/${delivery}/message`, Object.assign({text, supplier_id: supplier, speech_alternatives: speech}, extra || {}));
+    wait.remove(); render(r);
+  } catch (e) { wait.innerHTML = `<div class="who">WAKEEL</div>Error: ${esc(e.message)}`; }
+}
+
+async function rfid() {
+  if (!delivery) await newDelivery();
+  const wait = add(`<div class="who">RFID</div><span class="muted">قراءة البوابة…</span>`, "me");
+  const r = await api(`/api/deliveries/${delivery}/rfid`, {});
+  wait.innerHTML = `<div class="who">RFID · ${r.rfid_event.reader}</div><span class="ltr">${r.rfid_event.tags.length} tags read: ` +
+    esc(r.rfid_event.tags.map(t => t.epc).join(", ")) + `</span>`;
+  render(r);
+}
+
+function photo(input) {
+  const f = input.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    add(`<div class="who">حارس البوابة</div><img src="${rd.result}" style="max-width:100%;border-radius:8px">`, "me");
+    send({image: {media_type: f.type, data: rd.result.split(",")[1]}});
+  };
+  rd.readAsDataURL(f); input.value = "";
+}
+
+function render(r) {
+  if (r.type === "error") return add(`<div class="who">WAKEEL</div>${esc(r.message)}`, "bot");
+  if (r.type === "question") {
+    if (r.questions && r.questions.length) return renderQuestions(r);
+    pendingOptions = r.options || [];
+    const opts = pendingOptions.map((o, k) => `<button class="chip" onclick="pickOption(${k})">${esc(o.label)}</button>`).join("");
+    return add(`<div class="who">WAKEEL · سؤال واحد</div><pre>${esc(r.message)}</pre><div class="chips">${opts}</div>`, "bot");
+  }
+  const p = r.proposal;
+  let html = `<div class="who">WAKEEL</div>`;
+  if (r.engine === "claude" && r.message) html += `<pre>${esc(r.message)}</pre>`;
+  for (const rec of p.records) {
+    html += `<h3 style="margin:8px 0 2px">الفاتورة ${rec.bill_id} <span class="muted">(${rec.bill_date})</span></h3><table>
+      <tr><th>الصنف</th><th>المطلوب</th><th>الحالة</th></tr>` +
+      rec.lines.map(l => {
+        const d = [];
+        if (l.qty_ok) d.push(`${l.qty_ok} سليم`); if (l.qty_damaged) d.push(`${l.qty_damaged} تالف`);
+        if (l.qty_wrong_model) d.push(`${l.qty_wrong_model} ${esc(l.delivered_model)}`); if (l.qty_missing) d.push(`${l.qty_missing} لم يصل`);
+        return `<tr><td>${esc(l.item_ar)}<div class="muted ltr">${esc(l.model)}</div></td><td>×${l.qty_outstanding}</td>
+          <td><span class="st ${l.status}">${STATUS[l.status]}</span><div class="muted">${d.join("، ")}</div></td></tr>`;
+      }).join("") + `</table>
+      <div class="money"><div class="pay">ادفع الآن<b>${sar(rec.pay)}</b></div><div class="hold">تعليق<b>${sar(rec.hold)}</b></div></div>
+      ${rec.hold_breakdown.length ? `<table class="ltr" style="font-size:12px">${rec.hold_breakdown.map(h =>
+        `<tr><td>${esc(h.item_en)}</td><td>${h.reason.replace("_", " ")}</td><td>${h.qty} × ${h.unit_price.toLocaleString("en-US")}</td><td><b>${sar(h.amount)}</b></td></tr>`).join("")}</table>` : ""}
+      <ul class="next">${rec.next_actions.map(a => `<li>${esc(a)}</li>`).join("")}</ul>`;
+  }
+  for (const f of p.flags) html += `<div class="flag">⚠ ${esc(f.message)}</div>`;
+  if (!p.records.length) html += `<p>لا يوجد شيء للدفع. سيتم تنبيه المدير.</p>`;
+  html += `<div class="row" style="margin-top:8px"><button class="primary" style="flex:2" onclick="confirmIt(this)">✓ تأكيد</button>
+           <button class="ghost" style="flex:1" onclick="cancelIt(this)">إلغاء</button></div>`;
+  add(html, "bot");
+}
+
+// One question with options: a bill, a supplier, or which heard sentence was right (voice).
+let pendingOptions = [];
+function pickOption(k) {
+  const o = pendingOptions[k];
+  if (o.bill_id) answer({prefer_bills: [o.bill_id]}, o.bill_id);
+  else if (o.supplier_id) answer({supplier_id: o.supplier_id}, o.label);
+  else if (o.text) answer({text: o.text, replace_text: true}, o.label);
+}
+
+// Several questions (the agent was not sure what it heard): tap one answer per question, then send.
+let qAnswers = [];
+function renderQuestions(r) {
+  qAnswers = r.questions.map(() => null);
+  const card = add(`<div class="who">WAKEEL · ${r.questions.length > 1 ? r.questions.length + " أسئلة" : "سؤال"}</div><pre>${esc(r.message)}</pre>` +
+    r.questions.map((q, i) => `<div style="margin-top:10px"><b>${i + 1}. ${esc(q.question)}</b><div class="chips">` +
+      q.options.map((o, j) => `<button class="chip" data-q="${i}" onclick="pickAnswer(this, ${i}, ${j})">${esc(o)}</button>`).join("") +
+      `</div></div>`).join("") +
+    `<p class="muted" style="margin:8px 0 4px">اختر جواب لكل سؤال، أو اكتب الجواب تحت.</p>
+     <button class="primary" style="width:100%" disabled onclick="sendAnswers(this)">إرسال الإجابات</button>`, "bot");
+  card.questions = r.questions;
+}
+function pickAnswer(btn, i, j) {
+  const card = btn.closest(".card");
+  card.querySelectorAll(`.chip[data-q="${i}"]`).forEach(c => c.classList.toggle("sel", c === btn));
+  qAnswers[i] = card.questions[i].options[j];
+  card.querySelector("button.primary").disabled = qAnswers.some(a => a === null);
+}
+function sendAnswers(btn) {
+  const card = btn.closest(".card");
+  btn.disabled = true;
+  const text = card.questions.map((q, i) => `${q.question} ${qAnswers[i]}`).join("\n");
+  $("text").value = text; send();
+}
+
+function answer(extra, label) {
+  add(`<div class="who">حارس البوابة</div>${esc(label)}`, "me");
+  if (extra.supplier_id) supplier = extra.supplier_id;
+  send(extra);
+}
+
+async function confirmIt(btn) {
+  btn.disabled = true;
+  try {
+    const o = await api(`/api/deliveries/${delivery}/confirm`, {});
+    let h = `<div class="who">WAKEEL · تم</div><b>✓ تم التأكيد وأُرسل كل شيء.</b><div class="sent ltr">`;
+    if (o.finance.length) h += `<h4>To finance</h4>` + o.finance.map(m => `<div>${esc(m)}</div>`).join("");
+    if (o.emails.length) h += `<h4>Supplier email drafts</h4>` + o.emails.map(e => `<details><summary>${esc(e.subject)}</summary><pre dir="rtl" style="text-align:right">${esc(e.body_ar)}</pre><pre>${esc(e.body_en)}</pre></details>`).join("");
+    if (o.followups.length) h += `<h4>Follow-ups</h4>` + o.followups.map(f => `<div>${f.reason} ×${f.qty} — due ${f.due_date}</div>`).join("");
+    if (o.alerts.length) h += `<h4>Manager alerts</h4>` + o.alerts.map(a => `<div>${esc(a)}</div>`).join("");
+    h += `</div><button class="primary big" style="margin-top:10px" onclick="newDelivery()">+ توريد جديد</button>`;
+    add(h, "bot"); delivery = null; $("bar").hidden = true;
+  } catch (e) { btn.disabled = false; add(`Error: ${esc(e.message)}`, "bot"); }
+}
+async function cancelIt(btn) {
+  await api(`/api/deliveries/${delivery}/cancel`, {}); btn.closest(".card").style.opacity = .5;
+  add(`<div class="who">WAKEEL</div>تم الإلغاء. لم يُحفظ شيء.`, "bot"); delivery = null; $("bar").hidden = true;
+}
+
+// Voice: browser speech-to-text in Saudi Arabic (works best in Google Chrome).
+// We keep the recogniser's top guesses and send them all, so the agent can fix mis-heard words.
+let rec = null, voiceText = null, voiceGuesses = [];
+function toggleMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return alert("Voice input needs Google Chrome. You can type instead.");
+  if (rec) { rec.stop(); return; }
+  rec = new SR(); rec.lang = "ar-SA"; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 5;
+  rec.onresult = e => {
+    const res = Array.from(e.results);
+    $("text").value = res.map(x => x[0].transcript).join(" ").trim();
+    voiceText = $("text").value;
+    // Guess k = every phrase's k-th alternative (or its best one if there is no k-th).
+    voiceGuesses = [];
+    for (let k = 0; k < 5; k++) {
+      const g = res.map(x => (x[k] || x[0]).transcript).join(" ").trim();
+      if (!voiceGuesses.includes(g)) voiceGuesses.push(g);
+    }
+  };
+  rec.onend = () => { $("mic").classList.remove("rec"); $("text").placeholder = PLACEHOLDER; rec = null; };
+  $("mic").classList.add("rec"); $("text").placeholder = "🔴 أسمعك… تكلّم واضغط 🎤 مرة ثانية إذا خلصت"; rec.start();
+}
+const PLACEHOLDER = $("text").placeholder;
+$("text").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+init();
+</script>
+</body>
+</html>

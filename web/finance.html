@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WAKEEL · Finance</title>
+<style>
+  :root { --bg:#f4f5f2; --card:#fff; --ink:#1d2321; --muted:#68716d; --line:#e2e5e0; --brand:#0f6b4f;
+          --ok:#1b7f4c; --okbg:#e3f4ea; --warn:#9a6200; --warnbg:#fdf1d8; --bad:#b3261e; --badbg:#fbe5e3; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI", system-ui, sans-serif; background:var(--bg); color:var(--ink); font-size:14px; }
+  header { background:var(--brand); color:#fff; padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  header h1 { margin:0; font-size:20px; } header a, header button { color:#fff; }
+  header button { background:rgba(255,255,255,.15); border:0; border-radius:8px; padding:7px 12px; cursor:pointer; font:inherit; }
+  main { max-width:1200px; margin:0 auto; padding:16px; display:grid; gap:14px; grid-template-columns: 1fr 1fr; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; min-width:0; }
+  section.wide { grid-column:1 / -1; }
+  h2 { margin:0 0 10px; font-size:15px; }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; }
+  .tile { border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+  .tile b { display:block; font-size:24px; margin-top:2px; } .tile span { color:var(--muted); font-size:12px; }
+  table { width:100%; border-collapse:collapse; } td, th { padding:7px 6px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  th { color:var(--muted); font-size:12px; font-weight:600; }
+  .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .pay { color:var(--ok); font-weight:600; } .hold { color:var(--warn); font-weight:600; }
+  .pill { border-radius:999px; padding:2px 8px; font-size:12px; background:#eef0ec; white-space:nowrap; }
+  .pill.open { background:var(--warnbg); color:var(--warn); } .pill.closed, .pill.approved_by_finance { background:var(--okbg); color:var(--ok); }
+  .alert { background:var(--badbg); color:var(--bad); border-radius:8px; padding:8px 10px; margin:6px 0; }
+  button.approve { background:var(--brand); color:#fff; border:0; border-radius:8px; padding:6px 10px; cursor:pointer; font:inherit; }
+  .empty { color:var(--muted); }
+  pre { white-space:pre-wrap; font-family:inherit; margin:6px 0; background:#fafbf9; border-radius:8px; padding:8px; }
+  details { border-bottom:1px solid var(--line); padding:6px 0; }
+  @media (max-width:800px) { main { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>WAKEEL · Finance &amp; Procurement</h1>
+  <div><a href="/gate" target="_blank">Gate screen</a> &nbsp; <button onclick="resetDemo()">Reset demo data</button></div>
+</header>
+<main>
+  <section class="wide"><h2>Impact</h2><div class="tiles" id="tiles"></div></section>
+  <section class="wide"><h2>Payment decisions (awaiting finance)</h2><div id="notes"></div></section>
+  <section><h2>Manager alerts (exceptions only)</h2><div id="alerts"></div></section>
+  <section><h2>Open follow-ups</h2><div id="followups"></div></section>
+  <section class="wide"><h2>Supplier email drafts</h2><div id="emails"></div></section>
+  <section class="wide"><h2>Bills</h2><div id="bills"></div></section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sar = n => Number(n).toLocaleString("en-US") + " SAR";
+const empty = t => `<p class="empty">${t}</p>`;
+
+async function load() {
+  const [f, m] = await Promise.all([fetch("/api/finance").then(r => r.json()), fetch("/api/metrics").then(r => r.json())]);
+  const t = m.trial;
+  $("tiles").innerHTML = [
+    ["Deliveries confirmed (live)", m.deliveries_confirmed],
+    ["Avg minutes, gate → finance", m.avg_minutes_gate_to_finance ?? "–"],
+    ["No-touch share (live)", m.no_touch_share == null ? "–" : Math.round(m.no_touch_share * 100) + "%"],
+    ["Test set: cases passed", t ? `${t.passed}/${t.cases}` : "run trials"],
+    ["Test set: planted problems caught", t ? `${t.problems_caught}/${t.planted_problems}` : "–"],
+    ["Test set: no-touch share", t ? Math.round(t.no_touch_share * 100) + "%" : "–"],
+  ].map(([k, v]) => `<div class="tile"><span>${k}</span><b>${v}</b></div>`).join("");
+
+  $("notes").innerHTML = f.notifications.length ? `<table><tr><th>Bill</th><th>Message</th><th class="num">Pay now</th><th class="num">Hold</th><th>Status</th><th></th></tr>` +
+    f.notifications.map(n => `<tr><td><b>${n.bill_id}</b></td><td>${esc(n.message)}</td><td class="num pay">${sar(n.pay_amount)}</td>
+      <td class="num hold">${sar(n.hold_amount)}</td><td><span class="pill ${n.status}">${n.status.replaceAll("_", " ")}</span></td>
+      <td>${n.status === "awaiting_finance_approval" ? `<button class="approve" onclick="approve(${n.id})">Approve payment</button>` : ""}</td></tr>`).join("") + `</table>`
+    : empty("Nothing yet. Confirm a delivery on the gate screen.");
+
+  $("alerts").innerHTML = f.alerts.length ? f.alerts.map(a => `<div class="alert"><b>${a.kind}</b> · ${esc(a.message)}</div>`).join("") : empty("No exceptions.");
+  $("followups").innerHTML = f.followups.length ? `<table><tr><th>Bill</th><th>Item</th><th>Reason</th><th class="num">Qty</th><th>Due</th></tr>` +
+    f.followups.map(x => `<tr><td>${x.bill_id}</td><td>${esc(x.item)}</td><td>${x.reason.replaceAll("_", " ")}</td><td class="num">${x.qty}</td><td>${x.due_date}</td></tr>`).join("") + `</table>`
+    : empty("No follow-ups.");
+  $("emails").innerHTML = f.emails.length ? f.emails.map(e => `<details><summary><b>${esc(e.subject)}</b> <span class="pill">${e.status}</span></summary>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><pre dir="rtl">${esc(e.body_ar)}</pre><pre>${esc(e.body_en)}</pre></div></details>`).join("")
+    : empty("No drafts.");
+  $("bills").innerHTML = `<table><tr><th>Bill</th><th>Supplier</th><th>Date</th><th>Lines (received / ordered)</th><th class="num">Received value</th><th class="num">Total</th><th>Status</th></tr>` +
+    f.bills.map(b => `<tr><td><b>${b.id}</b></td><td>${esc(b.name_en)}</td><td>${b.bill_date}</td>
+      <td>${b.lines.map(l => `${esc(l.item)} ${l.qty_received}/${l.qty_ordered}`).join(" · ")}</td>
+      <td class="num">${sar(b.received_value)}</td><td class="num">${sar(b.total)}</td><td><span class="pill ${b.status}">${b.status}</span></td></tr>`).join("") + `</table>`;
+}
+async function approve(id) { await fetch(`/api/finance/${id}/approve`, {method:"POST"}); load(); }
+async function resetDemo() { if (confirm("Reset all demo data?")) { await fetch("/api/reset", {method:"POST"}); load(); } }
+load(); setInterval(load, 3000);
+</script>
+</body>
+</html>

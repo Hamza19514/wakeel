@@ -1,0 +1,14 @@
+[
+  {
+    "id": "H01", "title": "Team sentence: printer and desk only",
+    "text": "وصل من شركة أ الطابعة والمكتب بس، الباقي بعدين",
+    "planted": ["missing"],
+    "expect": {"bills": {"A-1042": {"pay": 2400, "hold": 2900, "lines": {"PRN": "received", "DSK": "received", "MON": "missing", "MSE": "missing"}}}}
+  },
+  {
+    "id": "H02", "title": "Team sentence: two chairs broken",
+    "text": "شركة ب سلمونا عشرة كراسي ومكتبين، كرسيين فيهم كسر",
+    "planted": ["damaged"],
+    "expect": {"bills": {"B-2001": {"pay": 6000, "hold": 900, "lines": {"CHR": "damaged", "DSK": "received"}}}}
+  }
+]

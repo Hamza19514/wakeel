@@ -1,0 +1,280 @@
+{
+  "summary": {
+    "engine": "offline",
+    "cases": 19,
+    "passed": 19,
+    "planted_problems": 23,
+    "problems_caught": 23,
+    "no_touch_share": 0.895,
+    "avg_agent_seconds": 0.006
+  },
+  "results": [
+    {
+      "id": "T01",
+      "title": "Brief demo: damaged monitor, missing mouse",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 0.008,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: تالف (2 سليم، 1 تالف)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 4,200 ريال، وعلّق 1,100 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T02",
+      "title": "Same delivery, different dialect wording",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: تالف (2 سليم، 1 تالف)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 4,200 ريال، وعلّق 1,100 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T03",
+      "title": "All good: full delivery closes the bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2001:\n  • كرسي ×10: استُلم (10 سليم)\n  • مكتب ×2: استُلم (2 سليم)\n  ادفع 6,900 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T04",
+      "title": "Partial delivery: 6 of 10 chairs",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "partial": true,
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2001:\n  • كرسي ×10: استلام جزئي (6 سليم، 4 لم يصل)\n  • مكتب ×2: لم يصل (2 لم يصل)\n  ادفع 2,700 ريال، وعلّق 4,200 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T05",
+      "title": "Wrong model: Samsung monitors instead of Dell",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "wrong_model": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: استُلم (1 سليم)\n  • مكتب ×1: استُلم (1 سليم)\n  • شاشة ×3: موديل مختلف (3 موديل مختلف (Samsung))\n  • ماوس ×1: استُلم (1 سليم)\n  ادفع 2,600 ريال، وعلّق 2,700 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T06",
+      "title": "One delivery, two bills (keyboards + laptops)",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "split": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1038:\n  • شاشة ×2: لم يصل (2 لم يصل)\n  • كيبورد ×5: استُلم (5 سليم)\n  ادفع 750 ريال، وعلّق 1,800 ريال.\nالفاتورة A-1050:\n  • لابتوب ×4: استُلم (4 سليم)\n  • ماوس ×4: استُلم (4 سليم)\n  ادفع 16,000 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T07",
+      "title": "Same item on two bills, nothing to tell them apart: agent asks",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "ambiguous": true,
+        "partial": true
+      },
+      "seconds": 0.009,
+      "engine": "offline",
+      "final": "الفاتورة A-1038:\n  • شاشة ×2: استلام جزئي (1 سليم، 1 لم يصل)\n  • كيبورد ×5: لم يصل (5 لم يصل)\n  ادفع 900 ريال، وعلّق 1,650 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T08",
+      "title": "Same item on two bills, quantity decides",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.007,
+      "engine": "offline",
+      "final": "الفاتورة C-3005:\n  • راوتر ×1: استُلم (1 سليم)\n  • سويتش ×2: لم يصل (2 لم يصل)\n  ادفع 700 ريال، وعلّق 1,900 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T09",
+      "title": "Same item on two bills, other items decide",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة C-3001:\n  • يو بي اس ×3: استُلم (3 سليم)\n  • راوتر ×2: استُلم (2 سليم)\n  ادفع 4,700 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T10",
+      "title": "Item already received earlier: possible duplicate",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "⚠ Router x2: already fully received on bill B-2010. Possible duplicate delivery or duplicate bill - do not pay twice.\nتأكيد؟"
+    },
+    {
+      "id": "T11",
+      "title": "Same delivery reported twice",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "⚠ Office chair x10: already fully received on bill B-2001. Possible duplicate delivery or duplicate bill - do not pay twice.\nتأكيد؟"
+    },
+    {
+      "id": "T12",
+      "title": "Gate keeper names the bill number",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1038:\n  • شاشة ×2: استُلم (2 سليم)\n  • كيبورد ×5: لم يصل (5 لم يصل)\n  ادفع 1,800 ريال، وعلّق 750 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T13",
+      "title": "English input, damaged projector",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة B-2007:\n  • بروجكتر ×1: تالف (1 تالف)\n  • كيبل HDMI ×10: استُلم (10 سليم)\n  ادفع 400 ريال، وعلّق 2,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T14",
+      "title": "Partial + damaged laptops, hold above manager threshold",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "damaged": true,
+        "partial": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1050:\n  • لابتوب ×4: تالف (2 سليم، 1 تالف، 1 لم يصل)\n  • ماوس ×4: استُلم (4 سليم)\n  ادفع 8,400 ريال، وعلّق 7,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T15",
+      "title": "Item not on any open bill",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "unexpected_item": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "⚠ Printer x?: not on any open bill from this supplier.\nتأكيد؟"
+    },
+    {
+      "id": "T16",
+      "title": "Simulated RFID scan (no typing)",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {},
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "الفاتورة B-2007:\n  • بروجكتر ×1: استُلم (1 سليم)\n  • كيبل HDMI ×10: استُلم (10 سليم)\n  ادفع 3,000 ريال، وعلّق 0 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T17",
+      "title": "Supplier not said: agent asks which company",
+      "passed": true,
+      "problems": [],
+      "asked_question": true,
+      "no_touch": false,
+      "planted": {
+        "missing": true
+      },
+      "seconds": 0.006,
+      "engine": "offline",
+      "final": "الفاتورة A-1042:\n  • طابعة ×1: لم يصل (1 لم يصل)\n  • مكتب ×1: لم يصل (1 لم يصل)\n  • شاشة ×3: استُلم (3 سليم)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 2,700 ريال، وعلّق 2,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T18",
+      "title": "More units than one bill holds: split across bills",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "split": true,
+        "missing": true
+      },
+      "seconds": 0.007,
+      "engine": "offline",
+      "final": "الفاتورة A-1038:\n  • شاشة ×2: استُلم (2 سليم)\n  • كيبورد ×5: لم يصل (5 لم يصل)\n  ادفع 1,800 ريال، وعلّق 750 ريال.\nالفاتورة A-1042:\n  • طابعة ×1: لم يصل (1 لم يصل)\n  • مكتب ×1: لم يصل (1 لم يصل)\n  • شاشة ×3: استُلم (3 سليم)\n  • ماوس ×1: لم يصل (1 لم يصل)\n  ادفع 2,700 ريال، وعلّق 2,600 ريال.\nتأكيد؟"
+    },
+    {
+      "id": "T19",
+      "title": "Over-delivery beyond all open bills",
+      "passed": true,
+      "problems": [],
+      "asked_question": false,
+      "no_touch": true,
+      "planted": {
+        "duplicate": true,
+        "missing": true
+      },
+      "seconds": 0.005,
+      "engine": "offline",
+      "final": "الفاتورة C-3005:\n  • راوتر ×1: لم يصل (1 لم يصل)\n  • سويتش ×2: استُلم (2 سليم)\n  ادفع 1,900 ريال، وعلّق 700 ريال.\n⚠ Network switch: 2 more than is outstanding on all open bills. Possible duplicate or over-delivery - extra units not accepted.\nتأكيد؟"
+    }
+  ]
+}
